@@ -49,6 +49,7 @@ export default class Main extends Component {
         this.addStudent = this.addStudent.bind(this)
         this.deleteCampus = this.deleteCampus.bind(this)
         this.deleteStudent = this.deleteStudent.bind(this)
+        this.replaceStudent = this.replaceStudent.bind(this)
     }
     componentDidMount() {
         const gettingStudents = axios.get('/api/students');
@@ -62,6 +63,11 @@ export default class Main extends Component {
                 students: dataArray[0],
                 campuses: dataArray[1]
             })
+        })
+    }
+    replaceStudent(newStudentArray){
+        this.setState({
+            students: newStudentArray
         })
     }
     addCampus(campusName) {
@@ -106,10 +112,10 @@ export default class Main extends Component {
                         <Route exact path="/" component={ Home } />
                         <Route exact path="/campuses" render ={() => <AllCampuses campuses={this.state.campuses} deleteCampus={this.deleteCampus}/>}/>
                         <Route exact path="/campuses/:campusId" component={SingleCampus} />
-                        <Route exact path="/students" render={() => <AllStudents students={this.state.students} campuses = {this.state.campuses} deleteStudent={this.deleteStudent}/>}/>
-                        <Route exact path="/students/:studentId" render={(props) => <SingleStudent campuses ={this.state.campuses} students={this.state.students} {...props}/>}/>
+                        <Route exact path="/students" render={() => <AllStudents students={this.state.students} campuses={this.state.campuses} deleteStudent={this.deleteStudent}/>}/>
+                        <Route exact path="/students/:studentId" render={(props) => <SingleStudent campuses ={this.state.campuses} replaceStudent={this.replaceStudent} {...props}/>}/>
                         <Route exact path="/new-campus" render={() => <NewCampus addCampus={this.addCampus}/>} />
-                        <Route exact path="/new-student" render={() => <NewStudent addStudent={this.addStudent} campuses={this.state.campuses}/>}/>
+                        <Route exact path="/new-student" render={() => <NewStudent addStudent={this.addStudent} campuses={this.state.campuses} students = {this.state.students}/>}/>
                     </Switch>
                 </div>
             </HashRouter>

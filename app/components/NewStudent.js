@@ -62,6 +62,4 @@ export default class NewCampus extends Component {
     </div>
         )
     }
-
-
 }

@@ -68,7 +68,7 @@
 //         )
 //     }
 // }
-
+//const studentId = this.props.match.params.studentId
 //////////////////////////////
 
 import React, { Component } from 'react'
@@ -86,8 +86,6 @@ export default class SingleStudent extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     componentDidMount() {
-        //const currentCampusId = this.props
-        //console.log('hi again', this.props)
         const studentId = this.props.match.params.studentId
         axios.get(`/api/students/${studentId}`)
         .then(result => result.data)
@@ -96,21 +94,6 @@ export default class SingleStudent extends Component {
                 student: student
             })
         })
-        //console.log('hi again again', this.props)
-    }
-    componentWillReceiveProps(nextProps){
-        //.find(student => student === this.state.student)//.campusId
-        
-        // const nextCampusId = nexProps.students.find(student => student === this.state.student).campusId
-        // if (currentCampusId !== nextCampusId) {
-        //     axios.get(`/api/stinds/${studentid}`)
-        //         .then(result => result.data)
-        //         .then(student => {
-        //             this.setState({
-        //                 student: student
-        //             })
-        //         })
-        // }
     }
     handleChange(event){
         this.setState({
@@ -119,20 +102,36 @@ export default class SingleStudent extends Component {
     }
     handleSubmit(event){
         event.preventDefault()
+        const oldCampusId = this.state.student.campusId
         const newCampus = this.props.campuses.find(campus => campus.name===this.state.inputCampusName)
-        const studentId = this.props.match.params.studentId
-        axios.put(`/api/students/${this.state.student.id}/campuses/${newCampus.id}`)
-            .then(axios.get(`/api/students/${studentId}`)
-            .then(result => result.data)
+        const studentId = this.state.student.id
+        axios.put(`/api/students/${studentId}/campuses/${newCampus.id}`)
             .then(student => {
                 this.setState({
-                    student: student,
-                    inputCampusName: null
+                    student: student
                 })
-            }))
+            })
+            .then(() => {
+                if (oldCampusId !== this.state.student.campusId)
+                {
+                    axios.get(`/api/students/${studentId}`)
+                        .then(result => result.data)
+                        .then(student => {
+                            this.setState({
+                                student: student,
+                            })
+                        })
+                        .then(() => {
+                            axios.get('/api/students')
+                                .then(result => result.data)
+                                .then(students => {
+                                    this.props.replaceStudent(students)
+                                })
+                        })
+                }
+        })
     }
     render() {
-        console.log('hi ', this.props)
         const student = this.state.student
         const campuses = this.props.campuses
         return (

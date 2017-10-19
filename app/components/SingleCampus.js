@@ -121,9 +121,3 @@ export default class SingleCampus extends Component {
         )
     }
 }
-
-// componentWillReceiveProps(nextProps){
-//     const currentId = this.props.match.params.campusId
-//     const nextId = nextProps.match.params.albumId
-//     if (currentId !== nextId) this.getCampusById(nextId)
-// }

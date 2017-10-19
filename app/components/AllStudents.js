@@ -68,7 +68,6 @@ import React,{ Component } from 'react'
 import { Link } from 'react-router-dom'
     
 const AllStudents = (props) => {
-    console.log('hi', props)
     const students = props.students
     const campuses = props.campuses;
     return (

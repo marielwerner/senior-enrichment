@@ -47,10 +47,12 @@ router.delete('/:studentId',(req,res,next) => {
 router.put('/:studentId/campuses/:campusId',(req,res,next) => {
     Student.findById(req.params.studentId)
         .then(student => {
-            student.update({
+            return student.update({
                 campusId: req.params.campusId
             })
         })
-        .then(res.sendStatus(204))
+        .then(updatedStudent => {
+            res.json(updatedStudent)
+        })
         .catch(next)
 })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HashRouter, Route, Switch, hashHistory} from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import Promise from 'bluebird'
 import axios from 'axios'
 import Home from './Home'

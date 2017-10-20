@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 export default class NewCampus extends Component {
@@ -6,7 +6,7 @@ export default class NewCampus extends Component {
         super(props)
         this.state = {
             inputStudentName: '',
-            inputStudentEmail:'',
+            inputStudentEmail: '',
             inputStudentCampus: ''
         }
         this.handleChangeName = this.handleChangeName.bind(this)
@@ -26,7 +26,7 @@ export default class NewCampus extends Component {
     }
     handleChangeCampus(event) {
         this.setState({
-            inputStudentCampus: event.target.value 
+            inputStudentCampus: event.target.value
         })
     }
     handleSubmit(event) {
@@ -42,24 +42,26 @@ export default class NewCampus extends Component {
             inputStudentCampus: ''
         })
     }
-    render () {
+    render() {
         return (
             <div>
-            <h3>Add A Student</h3>
-    <form onSubmit={this.handleSubmit}> 
-        Name: <input type="text" name="newStudentName" value={this.state.inputStudentName} onChange = {this.handleChangeName}/><br/>
-        Email: <input type="text" name="newStudentEmail" value={this.state.inputStudentEmail} onChange = {this.handleChangeEmail}/><br/>
-        Campus: <select onChange={this.handleChangeCampus}>
-            {this.props.campuses.map(campus => {
-                return (
-                    <option key={campus.id} name="campus" >{campus.name}</option>
-                )
-            })}
-        </select>
-        <input type="submit" value="submit" /><br/>
-    </form>
-    <h3><Link to="/students">All Students</Link></h3>
-    </div>
+                <h3>Add A Student</h3>
+                <form onSubmit={this.handleSubmit}>
+                    Name: <input type="text" name="newStudentName" value={this.state.inputStudentName} onChange={this.handleChangeName} /><br />
+                    Email: <input type="text" name="newStudentEmail" value={this.state.inputStudentEmail} onChange={this.handleChangeEmail} /><br />
+                    Campus: <select onChange={this.handleChangeCampus}>
+                        {[' '].concat(this.props.campuses).map(campus => {
+                            return (
+                                <option key={campus.id} name="campus" >{campus.name}</option>
+                            )
+                        })}
+                    </select>
+                    <input type="submit" value="submit" /><br />
+                </form>
+                <h3><Link to="/students">All Students</Link></h3>
+                <h3><Link to="/campuses">All Campuses</Link></h3>
+                <h3><Link to="/">Home</Link></h3>
+            </div>
         )
     }
 }

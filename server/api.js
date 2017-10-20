@@ -13,6 +13,6 @@ module.exports = api
 api.use('/students', require('./routes/students'));
 api.use('/campuses', require('./routes/campuses'));
 
-api.use(function (req, res) {
+api.use(function (req, res, next) {
   res.status(404).end();
 });

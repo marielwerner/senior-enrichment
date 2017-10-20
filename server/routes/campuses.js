@@ -6,6 +6,7 @@ const Campus = models.Campus;
 const Student = models.Student;
 module.exports = router;
 
+// GET All Campuses
 router.get('/', (req, res, next) => {
     Campus.findAll({
         include: [{all:true}]
@@ -14,6 +15,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+// GET Single Campus
 router.get('/:campusId', (req, res, next) => {
     Campus.findOne({
         where: {
@@ -24,12 +26,14 @@ router.get('/:campusId', (req, res, next) => {
     .catch(next);
 })
 
+// POST New Campus
 router.post('/', (req,res,next) =>{
     Campus.create(req.body)
             .then(campus => res.json(campus))
             .catch(next);
 })
 
+// UPDATE Single Campus
 router.put('/:campusId', (req, res, next) => {
     Campus.update(req.body, {
         where: {
@@ -39,6 +43,7 @@ router.put('/:campusId', (req, res, next) => {
         .then(() => res.send('updated'))
         .catch(next);
 })
+// DELETE Single Campus
 router.delete('/:campusId', (req, res, next) => {
     Campus.destroy({
         where: {
@@ -49,10 +54,7 @@ router.delete('/:campusId', (req, res, next) => {
         .catch(next);
 })
 
-router.get('/:campusId', (req,res,next) =>{
-    res.json(req.campus)
-})
-
+// GET Students at Single Campus
 router.get('/:campusId/students',(req,res,next) => {
     Campus.findById(req.params.campusId)
         .then(campus => {
@@ -64,42 +66,14 @@ router.get('/:campusId/students',(req,res,next) => {
         .catch(next)
     })
 
-router.get('/campusId/students',(req,res,next) => {
-    Campus.findById(req.params.campusId)
-        .then(campus => {
-            campus.getStudents({
-                include: [{all:true}]
-            })
-        })
-        .then(students => res.json(students))
-        .catch(next)
-})
+// DELETE Student from Single Campus
 router.delete('/:campusId/students/:studentId',(req,res,next) => {
     Student.findById(req.params.studentId)
-        .then(student => student.setCampus(null))
-        .then(res.sendStatus(202))
-        .catch(next);
+        .then(student => {
+            res.json(student)
+            return student.setCampus(null)})
+        .catch(next)
+        
 })
 
- // Campus.findById(req.params.campusId)
-    //     .then(campus => {
-    //         campus.getStudents({
-    //             include: [{all:true}]
-    //         })
-    //         .then(students => students.filter(student => student.id === Number(req.params.studentId)))
-    //         .then(student => {
-    //             console.log(student)
-    //             return student.destroy()
-    //         })
-    //         .catch(next)
-    // })
-// router.delete('/:campusId', (req, res, next) => {
-//     Campus.findById(req.params.campusId)
-//         .then(campus => {
-//             campus.getStudents({
-//                 include:[Student]
-//             })
-//         })
-//         .then(studen => campus.destroy())
-//         .catch(next)
-// })
+ 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 export default class NewCampus extends Component {
@@ -22,17 +22,18 @@ export default class NewCampus extends Component {
             inputCampus: ''
         })
     }
-    render () {
+    render() {
         return (
             <div>
-    <form onSubmit={this.handleSubmit}> 
-        Add Campus: <input type="text" name="newCampus" value={this.state.inputCampus} onChange = {this.handleChange}/>
-        <input type="submit" value="submit" />
-    </form>
-    <h3><Link to="/campuses">All Campuses</Link></h3>
-    <h3><Link to="/students">All Students</Link></h3>
-    <h3><Link to="/">Home</Link></h3>
-    </div>
+                <h3>Add A Campus</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" name="newCampus" value={this.state.inputCampus} onChange={this.handleChange} />
+                    <input type="submit" value="submit" />
+                </form>
+                <h3><Link to="/campuses">All Campuses</Link></h3>
+                <h3><Link to="/students">All Students</Link></h3>
+                <h3><Link to="/">Home</Link></h3>
+            </div>
         )
     }
 }

@@ -1,68 +1,3 @@
-// import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
-// import axios from 'axios'
-// export default class AllCampuses extends Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             campuses: []
-//         }
-//     }
-//     componentDidMount() {
-//         axios.get('/api/campuses')
-//             .then(result => result.data)
-//             .then(campuses => {
-//                 this.setState({
-//                     campuses: campuses
-//                 })
-//             })
-//     }
-//     render () {
-//         return (
-//             <div>
-//             <h1>Campuses</h1>
-//             <ul>
-//             { 
-//                 this.state.campuses.map(campus => {
-//                     return (
-//                         <li key={campus.id}>
-//                         <Link to=" ">{campus.name}</Link></li>
-//                     )
-//                 })
-//             }
-//             </ul>
-//             </div>
-//         )
-//     }
-// }
-
-////////////////////////////////////////////////// This one 
-
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-// const AllCampuses = (props) => {
-//     const campuses = props.campuses
-//     return (
-//         <div className="allCampuses">
-//         <h1>Campuses</h1>
-//         <ul>
-//         { 
-//             campuses.map(campus => {
-//                 return (
-//                     <li key={campus.id} className="campus">
-//                     <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-//                     <button onClick = {() => props.deleteCampus(campus.id)}>x</button>
-//                     </li>
-//                 )
-//             })
-//         }
-//         </ul>
-//         </div>
-//     )
-// }
-// export default AllCampuses;
-
-//////////////////
 import React from 'react'
 import { Link } from 'react-router-dom'
 import NewCampus from './NewCampus'
@@ -71,20 +6,18 @@ const AllCampuses = (props) => {
     return (
         <div className="allCampuses">
             <h1>Campuses</h1>
-            <ul>
-                {
-                    campuses && campuses.map((campus, index) => {
-                        return (
-                            <div>
-                                <li key={campus.id} className="campus">
-                                    <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-                                </li>
-                                <button onClick={()=>props.deleteCampus(campus.id)}>x</button>
-                            </div>
+            <table className="campusTable">
+                <tbody>
+                    {campuses && campuses.map(campus => {
+                        return (<tr key={campus.id}>
+                            <td><h4><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></h4></td>
+                            <td><button onClick={() => props.deleteCampus(campus.id)}>x</button></td>
+                        </tr>
                         )
                     })
-                }
-            </ul>
+                    }
+                </tbody>
+            </table>
             <h3><Link to="/new-campus">Add Campus</Link></h3>
             <h3><Link to="/students">All Students</Link></h3>
             <h3><Link to="/">Home</Link></h3>
@@ -92,4 +25,5 @@ const AllCampuses = (props) => {
     )
 }
 export default AllCampuses
+
 

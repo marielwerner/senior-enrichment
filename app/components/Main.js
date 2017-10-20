@@ -1,33 +1,5 @@
-// import React, { Component } from 'react';
-// import { HashRouter, Route } from 'react-router-dom';
-// import Home from './Home';
-// import StatefulStudents from './StatefulStudents'
-// import StatefulCampuses from './StatefulCampuses'
-// import SingleStudent from './SingleStudent'
-// import SingleCampus from './SingleCampus'
-// export default class Main extends Component {
-//     constructor(props) {
-//         super(props);
-//     }
-//     render () {
-//         return (
-//         <HashRouter>
-//         <div className = "container-fluid">
-//                 <Route exact path = '/' component = {Home} />
-//                 <Route exact path = '/students' component = {StatefulStudents} />
-//                 <Route exact path = '/campuses' component = {StatefulCampuses} />
-//                 <Route path = '/students/:studentId' component = {SingleStudent} />
-//                 <Route path = '/campuses/:campusId' component = {SingleCampus} />
-//         </div>
-//         </HashRouter>
-//        )
-//     }
-// }
-
-
-////////////////
 import React, { Component } from 'react'
-import { HashRouter, Route, Switch} from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import Promise from 'bluebird'
 import axios from 'axios'
 import Home from './Home'
@@ -43,13 +15,13 @@ export default class Main extends Component {
         super(props)
         this.state={
             students: [],
-            campuses: []
+            campuses: [],
         }
         this.addCampus = this.addCampus.bind(this)
         this.addStudent = this.addStudent.bind(this)
         this.deleteCampus = this.deleteCampus.bind(this)
         this.deleteStudent = this.deleteStudent.bind(this)
-        this.replaceStudent = this.replaceStudent.bind(this)
+        this.updateStudent = this.updateStudent.bind(this)
     }
     componentDidMount() {
         const gettingStudents = axios.get('/api/students');
@@ -65,7 +37,7 @@ export default class Main extends Component {
             })
         })
     }
-    replaceStudent(newStudentArray){
+    updateStudent(newStudentArray){
         this.setState({
             students: newStudentArray
         })
@@ -111,9 +83,9 @@ export default class Main extends Component {
                     <Switch>
                         <Route exact path="/" component={ Home } />
                         <Route exact path="/campuses" render ={() => <AllCampuses campuses={this.state.campuses} deleteCampus={this.deleteCampus}/>}/>
-                        <Route exact path="/campuses/:campusId" component={SingleCampus} />
+                        <Route exact path="/campuses/:campusId" render={(props) => <SingleCampus {...props} updateStudent={this.updateStudent}/>}/>
                         <Route exact path="/students" render={() => <AllStudents students={this.state.students} campuses={this.state.campuses} deleteStudent={this.deleteStudent}/>}/>
-                        <Route exact path="/students/:studentId" render={(props) => <SingleStudent campuses ={this.state.campuses} replaceStudent={this.replaceStudent} {...props}/>}/>
+                        <Route exact path="/students/:studentId" render={(props) => <SingleStudent campuses ={this.state.campuses} updateStudent={this.updateStudent} {...props}/>}/>
                         <Route exact path="/new-campus" render={() => <NewCampus addCampus={this.addCampus}/>} />
                         <Route exact path="/new-student" render={() => <NewStudent addStudent={this.addStudent} campuses={this.state.campuses} students = {this.state.students}/>}/>
                     </Switch>

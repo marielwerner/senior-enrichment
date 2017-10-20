@@ -52,6 +52,7 @@ export default class SingleStudent extends Component {
                                 .then(result => result.data)
                                 .then(students => {
                                     this.props.updateStudent(students)
+                                    
                                 })
                         })
                 }

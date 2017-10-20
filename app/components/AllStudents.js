@@ -16,8 +16,8 @@ const AllStudents = (props) => {
                 </thead>
                 <tbody>
                     {
-                        students && students.map((student, index) => {
-                            return (<tr key={index}>
+                        students && students.map(student => {
+                            return (<tr key={student.id}>
                                 <td><h4><Link to={`/students/${student.id}`}>{student.name}</Link></h4></td>
                                 <td>{student.email}</td>
                                 <td>{

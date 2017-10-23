@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import NavBar from './NavBar'
 export default class NewCampus extends Component {
     constructor(props) {
         super(props)
@@ -21,19 +22,19 @@ export default class NewCampus extends Component {
         this.setState({
             inputCampus: ''
         })
+        window.history.back()
     }
     render() {
         return (
             <div>
-                <h3>Add A Campus</h3>
+                <NavBar />
+                <h2>Add A Campus</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="newCampus" value={this.state.inputCampus} onChange={this.handleChange} />
-                    <input type="submit" value="submit" />
+                    <input className = "submit" type="submit" value="submit" />
                 </form>
-                <h3><Link to="/campuses">All Campuses</Link></h3>
-                <h3><Link to="/students">All Students</Link></h3>
-                <h3><Link to="/">Home</Link></h3>
             </div>
         )
     }
 }
+

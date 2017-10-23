@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import NavBar from './NavBar'
 export default class SingleStudent extends Component {
     constructor(props) {
         super(props)
@@ -62,11 +63,13 @@ export default class SingleStudent extends Component {
         const student = this.state.student
         const campuses = this.props.campuses
         return (
+            <div>
+            <NavBar />
             <div className="student">
                 <h3>{student.name}</h3>
                 <h3>{student.email}</h3>
                 {campuses && campuses.filter(campus => campus.id === student.campusId).map(campus =>{
-                    return <h3 key={campus.id}><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></h3>
+                    return <Link to={`/campuses/${campus.id}`} style={{textDecoration:'none'}}><h3 key={campus.id}>{campus.name}</h3></Link>
                 })}
                 <h4>Assign {student.name} to another campus</h4>
                 <select onChange={this.handleChange}>
@@ -79,14 +82,11 @@ export default class SingleStudent extends Component {
                 }
                 </select>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="submit" value="submit" />
+                    <input className = "submit" type="submit" value="submit" />
                 </form><br/>
-                <h3><Link to="/students">All Students</Link></h3>
-                <h3><Link to="/campuses">All Campuses</Link></h3>
-                <h3><Link to="/">Home</Link></h3>
+            </div>
             </div>
         )
     }
 }
-
 

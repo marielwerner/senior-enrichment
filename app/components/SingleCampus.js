@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import AllStudents from './AllStudents'
-
+import NavBar from './NavBar'
 export default class SingleCampus extends Component {
     constructor(props) {
         super(props)
@@ -46,24 +46,26 @@ export default class SingleCampus extends Component {
         const campus = this.state.campus
         const students = this.state.campusStudents
         return (
+            <div>
+            <NavBar />
             <div className="campus">
-                <h3>{campus.name}</h3>
+                
+                <h3>{campus.name} Students</h3>
                 <table>
                     {
                         students && students.map(student => {
                             return (<tr key={student.id}>
-                                <td><h4><Link to={`/students/${student.id}`}>{student.name}</Link></h4></td>
+                                <td><Link to={`/students/${student.id}`} style={{textDecoration:'none'}}><h4>{student.name}</h4></Link></td>
                                 <td><button onClick={() => this.deleteStudentFromCampus(campus.id, student.id)}>x</button></td>
                             </tr>)
                         })
                     }
                 </table>
-                <h3><Link to="/students">All Students</Link></h3>
-                <h3><Link to="/campuses">All Campuses</Link></h3>
-                <h3><Link to="/">Home</Link></h3>
+            </div>
             </div>
         )
     }
 }
+
 
 

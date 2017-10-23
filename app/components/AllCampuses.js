@@ -1,29 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import NewCampus from './NewCampus'
+import NavBar from './NavBar'
 const AllCampuses = (props) => {
     const campuses = props.campuses
     return (
         <div className="allCampuses">
-            <h1>Campuses</h1>
-            <table className="campusTable">
+            <NavBar />
+            <Link to="/new-campus" style={{textDecoration:'none'}}><h2>+ Campus</h2></Link>
+            <table className="campus-table">
+                <thead>
+                    <tr className="campus-table-headers">
+                        <th>Campus</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {campuses && campuses.map(campus => {
                         return (<tr key={campus.id}>
-                            <td><h4><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></h4></td>
-                            <td><button onClick={() => props.deleteCampus(campus.id)}>x</button></td>
+                            <td><Link to={`/campuses/${campus.id}`} style={{textDecoration:'none'}}><h4>{campus.name}</h4></Link></td>
+                            <td><button className="pure-button" onClick={() => props.deleteCampus(campus.id)}>x</button></td>
                         </tr>
                         )
                     })
                     }
                 </tbody>
             </table>
-            <h3><Link to="/new-campus">Add Campus</Link></h3>
-            <h3><Link to="/students">All Students</Link></h3>
-            <h3><Link to="/">Home</Link></h3>
         </div>
     )
 }
 export default AllCampuses
+
 
 

@@ -43,6 +43,7 @@ router.put('/:campusId', (req, res, next) => {
         .then(() => res.send('updated'))
         .catch(next);
 })
+
 // DELETE Single Campus
 router.delete('/:campusId', (req, res, next) => {
     Campus.destroy({
@@ -73,7 +74,9 @@ router.delete('/:campusId/students/:studentId',(req,res,next) => {
             res.json(student)
             return student.setCampus(null)})
         .catch(next)
-        
 })
+
+
+
 
  

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../index')
 
-const Student = db.define('student',{
+const Student = db.define('student', {
     name: {
         type: Sequelize.STRING
     },
@@ -12,5 +12,4 @@ const Student = db.define('student',{
         }
     },
 })
-
 module.exports = Student;

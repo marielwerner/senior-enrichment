@@ -67,6 +67,9 @@ export default class Main extends Component {
                     campuses: this.state.campuses.filter(campus => campus.id!==campusId)
                 })
             })
+            .then(() => {
+                console.log(this.state.students)
+            })
     }
     deleteStudent(studentId){
         axios.delete(`/api/students/${studentId}`)
@@ -86,8 +89,8 @@ export default class Main extends Component {
                         <Route exact path="/campuses/:campusId" render={(props) => <SingleCampus {...props} updateStudent={this.updateStudent}/>}/>
                         <Route exact path="/students" render={() => <AllStudents students={this.state.students} campuses={this.state.campuses} deleteStudent={this.deleteStudent}/>}/>
                         <Route exact path="/students/:studentId" render={(props) => <SingleStudent campuses ={this.state.campuses} updateStudent={this.updateStudent} {...props}/>}/>
-                        <Route exact path="/new-campus" render={() => <NewCampus addCampus={this.addCampus}/>} />
-                        <Route exact path="/new-student" render={() => <NewStudent addStudent={this.addStudent} campuses={this.state.campuses} students = {this.state.students}/>}/>
+                        <Route exact path="/new-campus" render={(props) => <NewCampus addCampus={this.addCampus} {...props}/>} />
+                        <Route exact path="/new-student" render={(props) => <NewStudent addStudent={this.addStudent} campuses={this.state.campuses} students = {this.state.students} {...props} />}/>
                     </Switch>
                 </div>
             </HashRouter>
